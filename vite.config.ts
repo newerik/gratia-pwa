@@ -11,7 +11,7 @@ export default defineConfig(({ mode }) => {
       react(),
       VitePWA({
         registerType: "autoUpdate",
-        injectRegister: false,
+        injectRegister: "auto",
 
         pwaAssets: {
           disabled: false,
@@ -29,6 +29,7 @@ export default defineConfig(({ mode }) => {
           globPatterns: ["**/*.{js,css,html,svg,png,ico}"],
           cleanupOutdatedCaches: true,
           clientsClaim: true,
+          skipWaiting: true,
         },
 
         devOptions: {
