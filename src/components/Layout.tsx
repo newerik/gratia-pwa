@@ -1,5 +1,18 @@
 import { useState } from 'react';
-import { AppBar, Toolbar, IconButton, Typography, Drawer, List, ListItem, ListItemButton, ListItemText, ListItemIcon, Box, Avatar } from '@mui/material';
+import {
+  AppBar,
+  Toolbar,
+  IconButton,
+  Typography,
+  Drawer,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  ListItemIcon,
+  Box,
+  Avatar,
+} from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
 import EditCalendarIcon from '@mui/icons-material/EditCalendar';
 import VolunteerActivismIcon from '@mui/icons-material/VolunteerActivism';
@@ -30,9 +43,9 @@ const Layout = () => {
 
   // Simple title logic
   let currentTitle = t('appTitle');
-  const activeItem = menuItems.find(item => item.path === location.pathname);
+  const activeItem = menuItems.find((item) => item.path === location.pathname);
   if (activeItem) {
-      currentTitle = activeItem.text;
+    currentTitle = activeItem.text;
   }
 
   const drawer = (
@@ -41,7 +54,12 @@ const Layout = () => {
       <List>
         {menuItems.map((item) => (
           <ListItem key={item.text} disablePadding>
-            <ListItemButton onClick={() => { navigate(item.path); setMobileOpen(false); }}>
+            <ListItemButton
+              onClick={() => {
+                navigate(item.path);
+                setMobileOpen(false);
+              }}
+            >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItemButton>
@@ -58,7 +76,7 @@ const Layout = () => {
         sx={{
           width: { sm: `calc(100% - ${drawerWidth}px)` },
           ml: { sm: `${drawerWidth}px` },
-          bgcolor: headerColor
+          bgcolor: headerColor,
         }}
       >
         <Toolbar>
@@ -74,13 +92,15 @@ const Layout = () => {
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             {currentTitle}
           </Typography>
-           <IconButton color="inherit">
-              {/* Placeholder for user icon logic */}
-              <Avatar sx={{ bgcolor: 'transparent' }}><AccountCircle /></Avatar>
-           </IconButton>
+          <IconButton color="inherit">
+            {/* Placeholder for user icon logic */}
+            <Avatar sx={{ bgcolor: 'transparent' }}>
+              <AccountCircle />
+            </Avatar>
+          </IconButton>
         </Toolbar>
       </AppBar>
-      
+
       <Box
         component="nav"
         sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
@@ -101,7 +121,7 @@ const Layout = () => {
         >
           {drawer}
         </Drawer>
-        
+
         {/* Desktop Drawer */}
         <Drawer
           variant="permanent"
@@ -114,23 +134,23 @@ const Layout = () => {
           {drawer}
         </Drawer>
       </Box>
-      
+
       <Box
         component="main"
-        sx={{ 
-          flexGrow: 1, 
-          p: 3, 
-          width: { sm: `calc(100% - ${drawerWidth}px)` }, 
+        sx={{
+          flexGrow: 1,
+          p: 3,
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
           boxSizing: 'border-box',
-          overflow: 'hidden' 
+          overflow: 'hidden',
         }}
       >
         <Toolbar />
         <Box sx={{ flexGrow: 1, overflow: 'hidden', minHeight: 0 }}>
-             <Outlet />
+          <Outlet />
         </Box>
       </Box>
     </Box>

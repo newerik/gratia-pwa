@@ -1,7 +1,17 @@
-import { Typography, Box, FormControl, InputLabel, Select, MenuItem, Switch, FormControlLabel } from '@mui/material';
+import {
+  Typography,
+  Box,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
+  Switch,
+  FormControlLabel,
+} from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useAppTheme, HEADER_COLORS } from '../context/ThemeContext';
+import { useAppTheme } from '../context/ThemeContext';
+import { HEADER_COLORS } from '../types/theme';
 
 const Settings = () => {
   const { t, i18n } = useTranslation();
@@ -21,7 +31,7 @@ const Settings = () => {
   return (
     <Box p={2} display="flex" flexDirection="column" gap={3}>
       <Typography variant="h4">{t('menu.settings')}</Typography>
-      
+
       {/* Language */}
       <FormControl fullWidth>
         <InputLabel id="language-select-label">Language</InputLabel>
@@ -46,16 +56,16 @@ const Settings = () => {
       <FormControl fullWidth>
         <InputLabel id="header-color-select-label">Header Color</InputLabel>
         <Select
-            labelId="header-color-select-label"
-            value={headerColor}
-            label="Header Color"
-            onChange={handleColorChange}
+          labelId="header-color-select-label"
+          value={headerColor}
+          label="Header Color"
+          onChange={handleColorChange}
         >
-            {Object.entries(HEADER_COLORS).map(([name, color]) => (
-                <MenuItem key={name} value={color} sx={{ color: color, fontWeight: 'bold' }}>
-                    {name}
-                </MenuItem>
-            ))}
+          {Object.entries(HEADER_COLORS).map(([name, color]) => (
+            <MenuItem key={name} value={color} sx={{ color: color, fontWeight: 'bold' }}>
+              {name}
+            </MenuItem>
+          ))}
         </Select>
       </FormControl>
     </Box>

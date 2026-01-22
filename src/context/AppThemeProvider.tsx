@@ -1,37 +1,11 @@
-import { createContext, useContext, useState, useMemo } from 'react';
+import { useState, useMemo } from 'react';
+import type { ReactNode } from 'react';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import type { PaletteMode } from '@mui/material';
+import { HEADER_COLORS } from '../types/theme';
+import { ThemeContext } from './ThemeContext';
 
-// Rainbow colors per concept
-export const HEADER_COLORS = {
-  Red: '#f44336',
-  Orange: '#ff9800',
-  Yellow: '#ffeb3b',
-  Green: '#4caf50',
-  Blue: '#2196f3',
-  Indigo: '#3f51b5',
-  Violet: '#9c27b0', // Default
-};
-
-export type HeaderColorKey = keyof typeof HEADER_COLORS;
-
-interface ThemeContextType {
-  mode: PaletteMode;
-  headerColor: string;
-  toggleColorMode: () => void;
-  setAppHeaderColor: (color: string) => void;
-}
-
-const ThemeContext = createContext<ThemeContextType>({
-  mode: 'light',
-  headerColor: HEADER_COLORS.Violet,
-  toggleColorMode: () => {},
-  setAppHeaderColor: () => {},
-});
-
-export const useAppTheme = () => useContext(ThemeContext);
-
-export const AppThemeProvider = ({ children }: { children: React.ReactNode }) => {
+export const AppThemeProvider = ({ children }: { children: ReactNode }) => {
   // Initialize from local storage or default
   const [mode, setMode] = useState<PaletteMode>(() => {
     const savedMode = localStorage.getItem('themeMode');
@@ -53,8 +27,8 @@ export const AppThemeProvider = ({ children }: { children: React.ReactNode }) =>
         });
       },
       setAppHeaderColor: (color: string) => {
-          setHeaderColorState(color);
-          localStorage.setItem('headerColor', color);
+        setHeaderColorState(color);
+        localStorage.setItem('headerColor', color);
       },
       mode,
       headerColor,

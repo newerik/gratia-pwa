@@ -4,7 +4,7 @@ import GratitudeJournal from './pages/GratitudeJournal';
 import PrayerList from './pages/PrayerList';
 import Settings from './pages/Settings';
 import PWABadge from './PWABadge';
-import "./App.css";
+import './App.css';
 
 function App() {
   return (
