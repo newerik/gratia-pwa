@@ -20,7 +20,7 @@ import SettingsIcon from '@mui/icons-material/Settings';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
-import { useAppTheme } from '../context/ThemeContext';
+import { useAppTheme } from '../../context/ThemeContext';
 
 const drawerWidth = 240;
 
