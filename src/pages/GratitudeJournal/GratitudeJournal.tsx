@@ -91,7 +91,12 @@ const GratitudeJournal = () => {
 
   return (
     <LocalizationProvider dateAdapter={AdapterDateFns} adapterLocale={dateLocale}>
-      <Box display="flex" flexDirection={isDesktop ? 'row' : 'column'} height="100%" gap={3}>
+      <Box
+        display="flex"
+        flexDirection={isDesktop ? 'row' : 'column'}
+        height={isDesktop ? '100%' : 'auto'}
+        gap={3}
+      >
         {/* LEFT / TOP: Content Area */}
         <Box
           flexGrow={1}

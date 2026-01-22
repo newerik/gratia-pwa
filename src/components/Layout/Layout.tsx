@@ -150,7 +150,7 @@ const Layout = () => {
         }}
       >
         <Toolbar />
-        <Box sx={{ flexGrow: 1, overflow: 'hidden', minHeight: 0 }}>
+        <Box sx={{ flexGrow: 1, overflow: 'auto', minHeight: 0 }}>
           <Outlet />
         </Box>
       </Box>
