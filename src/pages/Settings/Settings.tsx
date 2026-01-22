@@ -10,8 +10,8 @@ import {
 } from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material';
 import { useTranslation } from 'react-i18next';
-import { useAppTheme } from '../../context/ThemeContext';
-import { HEADER_COLORS } from '../../types/theme';
+import { useAppTheme } from '@/context/ThemeContext';
+import { HEADER_COLORS } from '@/types/theme';
 
 const Settings = () => {
   const { t, i18n } = useTranslation();

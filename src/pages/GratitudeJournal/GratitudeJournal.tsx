@@ -9,73 +9,10 @@ import { format, isToday } from 'date-fns';
 import { hu, enUS } from 'date-fns/locale';
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import {
-  Editor,
-  EditorProvider,
-  Toolbar as EditorToolbar,
-  BtnBold,
-  BtnItalic,
-  BtnUnderline,
-  BtnBulletList,
-  BtnClearFormatting,
-} from 'react-simple-wysiwyg';
 import type { ContentEditableEvent } from 'react-simple-wysiwyg';
+import TextEditor from '@/components/TextEditor';
 
 // --- Sub-Components Defined Outside to Prevent Re-renders & Focus Loss ---
-
-interface JournalEditorProps {
-  content: string;
-  onChange: (e: ContentEditableEvent) => void;
-  theme: Theme;
-}
-
-const JournalEditor = ({ content, onChange, theme }: JournalEditorProps) => (
-  <Box
-    sx={{
-      height: '100%',
-      display: 'flex',
-      flexDirection: 'column',
-      textAlign: 'left', // Fix alignment
-      '& .rsw-editor': {
-        flexGrow: 1,
-        border: `1px solid ${theme.palette.divider}`,
-        borderRadius: '0 0 4px 4px',
-        minHeight: '200px', // Minimum height but can grow
-        outline: 'none',
-        fontFamily: theme.typography.fontFamily,
-        fontSize: '1rem',
-        padding: '1rem',
-      },
-      '& .rsw-toolbar': {
-        background: theme.palette.background.paper,
-        border: `1px solid ${theme.palette.divider}`,
-        borderBottom: 'none',
-        borderRadius: '4px 4px 0 0',
-        '& .rsw-btn': {
-          color: theme.palette.text.primary,
-          '&:hover': {
-            background: theme.palette.action.hover,
-          },
-        },
-      },
-    }}
-  >
-    <EditorProvider>
-      <EditorToolbar>
-        <BtnBold />
-        <BtnItalic />
-        <BtnUnderline />
-        <BtnBulletList />
-        <BtnClearFormatting />
-      </EditorToolbar>
-      <Editor
-        value={content}
-        onChange={onChange}
-        containerProps={{ style: { height: '100%', overflowY: 'auto' } }}
-      />
-    </EditorProvider>
-  </Box>
-);
 
 interface ReadOnlyViewProps {
   content: string;
@@ -215,7 +152,7 @@ const GratitudeJournal = () => {
             }}
           >
             {isEditing ? (
-              <JournalEditor content={content} onChange={handleContentChange} theme={theme} />
+              <TextEditor content={content} onChange={handleContentChange} theme={theme} />
             ) : (
               <ReadOnlyView
                 content={content}

@@ -1,8 +1,8 @@
 import { createContext, useContext } from 'react';
 import type { PaletteMode } from '@mui/material';
-import { HEADER_COLORS } from '../types/theme';
+import { HEADER_COLORS } from '@/types/theme';
 
-export interface ThemeContextType {
+interface ThemeContextType {
   mode: PaletteMode;
   headerColor: string;
   toggleColorMode: () => void;

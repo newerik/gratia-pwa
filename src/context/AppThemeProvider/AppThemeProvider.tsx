@@ -2,8 +2,8 @@ import { useState, useMemo } from 'react';
 import type { ReactNode } from 'react';
 import { ThemeProvider, createTheme, CssBaseline } from '@mui/material';
 import type { PaletteMode } from '@mui/material';
-import { HEADER_COLORS } from '../../types/theme';
-import { ThemeContext } from '../ThemeContext';
+import { HEADER_COLORS } from '@/types/theme';
+import { ThemeContext } from '@/context/ThemeContext';
 
 export const AppThemeProvider = ({ children }: { children: ReactNode }) => {
   // Initialize from local storage or default
