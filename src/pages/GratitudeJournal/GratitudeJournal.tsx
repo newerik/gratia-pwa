@@ -6,11 +6,11 @@ import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { format, isToday } from 'date-fns';
-import { hu, enUS } from 'date-fns/locale';
 import EditIcon from '@mui/icons-material/Edit';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import type { ContentEditableEvent } from 'react-simple-wysiwyg';
 import TextEditor from '@/components/TextEditor';
+import { useDateLocale } from '@/hooks';
 
 // --- Sub-Components Defined Outside to Prevent Re-renders & Focus Loss ---
 
@@ -41,7 +41,7 @@ const ReadOnlyView = ({ content, theme, noEntriesText }: ReadOnlyViewProps) => (
 // --- Main Component ---
 
 const GratitudeJournal = () => {
-  const { t, i18n } = useTranslation();
+  const { t } = useTranslation();
   const theme = useTheme();
   const isDesktop = useMediaQuery(theme.breakpoints.up('md'));
 
@@ -81,7 +81,7 @@ const GratitudeJournal = () => {
   };
 
   // Locale for date-fns
-  const dateLocale = i18n.language.startsWith('hu') ? hu : enUS;
+  const dateLocale = useDateLocale();
 
   // Title formatting
   const dateTitle = format(selectedDate, 'PPP', { locale: dateLocale });
