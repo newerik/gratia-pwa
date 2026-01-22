@@ -1,0 +1,12 @@
+{
+  "appTitle": "Gratia",
+  "menu": {
+    "journal": "Gratitude Journal",
+    "prayerList": "Prayer List",
+    "settings": "Settings"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error"
+  }
+}

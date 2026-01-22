@@ -1,12 +1,23 @@
-import PWABadge from "./PWABadge.tsx";
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Layout from './components/Layout';
+import GratitudeJournal from './pages/GratitudeJournal';
+import PrayerList from './pages/PrayerList';
+import Settings from './pages/Settings';
+import PWABadge from './PWABadge';
 import "./App.css";
 
 function App() {
   return (
-    <>
-      <h1>Gratia - gratitude journal</h1>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Layout />}>
+          <Route index element={<GratitudeJournal />} />
+          <Route path="prayer-list" element={<PrayerList />} />
+          <Route path="settings" element={<Settings />} />
+        </Route>
+      </Routes>
       <PWABadge />
-    </>
+    </BrowserRouter>
   );
 }
 

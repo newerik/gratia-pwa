@@ -1,0 +1,12 @@
+{
+  "appTitle": "Gratia",
+  "menu": {
+    "journal": "Hála napló",
+    "prayerList": "Imalista",
+    "settings": "Beállítások"
+  },
+  "common": {
+    "loading": "Betöltés...",
+    "error": "Hiba"
+  }
+}
