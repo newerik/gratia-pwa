@@ -1,5 +1,7 @@
-import { Switch, styled } from '@mui/material';
+import { Switch, styled, Box } from '@mui/material';
 import { useAppTheme } from '@/context/ThemeContext';
+import SunIcon from '@/assets/icons/sun.svg';
+import MoonIcon from '@/assets/icons/moon.svg';
 
 const ThemeSwitch = styled(Switch)(({ theme }) => ({
   width: 62,
@@ -12,37 +14,10 @@ const ThemeSwitch = styled(Switch)(({ theme }) => ({
     '&.Mui-checked': {
       color: '#fff',
       transform: 'translateX(22px)',
-      '& .MuiSwitch-thumb': {
-        backgroundColor: '#2e3344',
-      },
-      '& .MuiSwitch-thumb:before': {
-        content: "'🌜'",
-        fontSize: '18px',
-      },
       '& + .MuiSwitch-track': {
         opacity: 1,
         backgroundColor: '#1a1d24',
       },
-    },
-  },
-  '& .MuiSwitch-thumb': {
-    backgroundColor: '#ffdb10',
-    width: 32,
-    height: 32,
-    transition: theme.transitions.create(['background-color'], {
-      duration: 200,
-    }),
-    '&::before': {
-      content: "'🌞'",
-      position: 'absolute',
-      width: '100%',
-      height: '100%',
-      left: 0,
-      top: 0,
-      display: 'flex',
-      alignItems: 'center',
-      justifyContent: 'center',
-      fontSize: '20px',
     },
   },
   '& .MuiSwitch-track': {
@@ -55,6 +30,26 @@ const ThemeSwitch = styled(Switch)(({ theme }) => ({
   },
 }));
 
+// --- Sub-Components Defined Outside to Prevent Re-renders & Focus Loss ---
+
+const StyledIcon = ({ src, alt, bg }: { src: string; alt: string; bg: string }) => (
+  <Box
+    sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+      width: 32,
+      height: 32,
+      borderRadius: '50%',
+      backgroundColor: bg,
+      boxShadow:
+        '0px 2px 1px -1px rgba(0,0,0,0.2), 0px 1px 1px 0px rgba(0,0,0,0.14), 0px 1px 3px 0px rgba(0,0,0,0.12)',
+    }}
+  >
+    <img src={src} alt={alt} style={{ width: 22, height: 22 }} />
+  </Box>
+);
+
 const DarkModeSwitch = () => {
   const { mode, toggleColorMode } = useAppTheme();
 
@@ -62,6 +57,8 @@ const DarkModeSwitch = () => {
     <ThemeSwitch
       checked={mode === 'dark'}
       onChange={toggleColorMode}
+      icon={<StyledIcon src={SunIcon} alt="sun" bg="#ffdb10" />}
+      checkedIcon={<StyledIcon src={MoonIcon} alt="moon" bg="#2e3344" />}
       slotProps={{ input: { 'aria-label': 'theme switch' } }}
     />
   );

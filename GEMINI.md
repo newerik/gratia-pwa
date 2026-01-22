@@ -10,6 +10,18 @@
 
 ---
 
+## ⛔ CRITICAL RULES: Git & Commits
+
+- **NO AUTO-COMMIT:** 🚫 **NEVER** commit or push changes unless explicitly asked by the user.
+- **Mood:** Imperative ("Add", not "Added").
+- **Forbidden Word:** "Refactor" (Describe the actual change instead).
+- **Be Specific:**
+  - ✅ "Update component to use MUI v7 slotProps API"
+  - ✅ "Simplify authentication flow"
+  - ❌ "Refactor code"
+
+---
+
 ## 🛠️ Technology Stack & Tooling
 
 - **Framework:** React 19.2.0 with TypeScript (Strict Mode)
@@ -64,17 +76,3 @@ src/components/MyComplexComponent/
 - **DO NOT** extract hooks just to "clean up" a component.
 - **DO** create hooks only if they enable reuse or encapsulate very complex logic.
 - **DO** keep logic inline if it is used once.
-
----
-
-## 📝 Workflow & Standards
-
-### Git Commit Messages
-
-- **Git & Commits:** 🚫 **NEVER** commit or push changes unless explicitly asked by the user.
-- **Mood:** Imperative ("Add", not "Added").
-- **Forbidden Word:** "Refactor" (Describe the actual change instead).
-- **Be Specific:**
-  - ✅ "Update component to use MUI v7 slotProps API"
-  - ✅ "Simplify authentication flow"
-  - ❌ "Refactor code"
