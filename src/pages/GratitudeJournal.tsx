@@ -51,6 +51,12 @@ const JournalEditor = ({ content, onChange, theme }: JournalEditorProps) => (
         border: `1px solid ${theme.palette.divider}`,
         borderBottom: 'none',
         borderRadius: '4px 4px 0 0',
+        '& .rsw-btn': {
+          color: theme.palette.text.primary,
+          '&:hover': {
+            background: theme.palette.action.hover,
+          },
+        },
       },
     }}
   >
