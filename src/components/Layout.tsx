@@ -52,7 +52,7 @@ const Layout = () => {
   );
 
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: 'flex', height: '100vh', overflow: 'hidden' }}>
       <AppBar
         position="fixed"
         sx={{
@@ -117,10 +117,21 @@ const Layout = () => {
       
       <Box
         component="main"
-        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` }, minHeight: '100vh', boxSizing: 'border-box' }}
+        sx={{ 
+          flexGrow: 1, 
+          p: 3, 
+          width: { sm: `calc(100% - ${drawerWidth}px)` }, 
+          height: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          boxSizing: 'border-box',
+          overflow: 'hidden' 
+        }}
       >
         <Toolbar />
-        <Outlet />
+        <Box sx={{ flexGrow: 1, overflow: 'hidden', minHeight: 0 }}>
+             <Outlet />
+        </Box>
       </Box>
     </Box>
   );

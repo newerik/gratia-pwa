@@ -7,6 +7,12 @@
   },
   "common": {
     "loading": "Betöltés...",
-    "error": "Hiba"
+    "error": "Hiba",
+    "today": "Ma",
+    "edit": "Szerkesztés"
+  },
+  "journal": {
+    "noEntries": "Nincs bejegyzés erre a napra. Koppints a Szerkesztésre az íráshoz!",
+    "calendarHelp": "Válassz egy dátumot a bejegyzések megtekintéséhez vagy szerkesztéséhez."
   }
 }

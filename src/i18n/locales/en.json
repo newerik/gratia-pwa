@@ -7,6 +7,12 @@
   },
   "common": {
     "loading": "Loading...",
-    "error": "Error"
+    "error": "Error",
+    "today": "Today",
+    "edit": "Edit"
+  },
+  "journal": {
+    "noEntries": "No entries for this day. Tap Edit to start writing!",
+    "calendarHelp": "Select a date to view or edit entries."
   }
 }
