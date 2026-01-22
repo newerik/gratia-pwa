@@ -21,6 +21,7 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAppTheme } from '@/context/ThemeContext';
+import DarkModeSwitch from '@/components/DarkModeSwitch';
 
 const drawerWidth = 240;
 
@@ -91,6 +92,7 @@ const Layout = () => {
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             {currentTitle}
           </Typography>
+          <DarkModeSwitch />
           <IconButton color="inherit">
             {/* Placeholder for user icon logic */}
             <Avatar sx={{ bgcolor: 'transparent' }}>

@@ -1,13 +1,4 @@
-import {
-  Typography,
-  Box,
-  FormControl,
-  InputLabel,
-  Select,
-  MenuItem,
-  Switch,
-  FormControlLabel,
-} from '@mui/material';
+import { Typography, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useAppTheme } from '@/context/ThemeContext';
@@ -15,7 +6,7 @@ import { HEADER_COLORS } from '@/types/theme';
 
 const Settings = () => {
   const { t, i18n } = useTranslation();
-  const { mode, toggleColorMode, headerColor, setAppHeaderColor } = useAppTheme();
+  const { headerColor, setAppHeaderColor } = useAppTheme();
 
   // i18next might return something like 'en-US', so we might need to normalize or just handle 'en' and 'hu'
   const currentLanguage = i18n.language.startsWith('hu') ? 'hu' : 'en';
@@ -45,12 +36,6 @@ const Settings = () => {
           <MenuItem value="hu">Magyar</MenuItem>
         </Select>
       </FormControl>
-
-      {/* Dark Mode */}
-      <FormControlLabel
-        control={<Switch checked={mode === 'dark'} onChange={toggleColorMode} />}
-        label="Dark Mode"
-      />
 
       {/* Header Color */}
       <FormControl fullWidth>

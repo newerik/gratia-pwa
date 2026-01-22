@@ -50,6 +50,7 @@ src/components/MyComplexComponent/
 ### 2. Coding Patterns
 
 - **MUI Usage:** Use the `sx` prop for styling. Utilize `useTheme` and `useMediaQuery` for responsiveness.
+- **MUI Props:** 🚫 Avoid `inputProps`. Use `slotProps={{ input: ... }}` instead as `inputProps` is deprecated.
 - **Sub-components:** Separate sub-components defined outside the main component to prevent re-renders and focus loss.
 
 ---
