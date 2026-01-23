@@ -11,6 +11,21 @@
     "today": "Today",
     "edit": "Edit"
   },
+  "editor": {
+    "undo": "Undo",
+    "redo": "Redo",
+    "bold": "Bold",
+    "italic": "Italic",
+    "underline": "Underline",
+    "alignLeft": "Align left",
+    "alignCenter": "Align center",
+    "alignRight": "Align right",
+    "bulletList": "Bullet list",
+    "numberedList": "Numbered list",
+    "outdent": "Decrease indent",
+    "indent": "Increase indent",
+    "clearFormatting": "Clear formatting"
+  },
   "journal": {
     "noEntries": "No entries for this day. Click here to start writing!",
     "editHint": "Click on the text to edit your journal.",

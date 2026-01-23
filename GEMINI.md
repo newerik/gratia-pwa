@@ -14,6 +14,7 @@
 
 - **NO AUTO-COMMIT:** 🚫 **NEVER** commit or push changes unless explicitly asked by the user.
 - **CODENAME:** 🚀 **"toljad"** means "commit and push".
+- **CODENAME:** 📤 **"ereszd"** means "pnpm build:upload".
 - **Mood:** Imperative ("Add", not "Added").
 - **Forbidden Word:** "Refactor" (Describe the actual change instead).
 - **Be Specific:**
