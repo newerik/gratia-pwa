@@ -12,7 +12,8 @@
     "edit": "Szerkesztés"
   },
   "journal": {
-    "noEntries": "Nincs bejegyzés erre a napra. Koppints a Szerkesztésre az íráshoz!",
+    "noEntries": "Nincs bejegyzés erre a napra. Kattints ide az íráshoz!",
+    "editHint": "Kattints a szövegre a napló szerkesztéséhez.",
     "calendarHelp": "Válassz egy dátumot a bejegyzések megtekintéséhez vagy szerkesztéséhez."
   }
 }

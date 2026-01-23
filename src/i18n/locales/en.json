@@ -12,7 +12,8 @@
     "edit": "Edit"
   },
   "journal": {
-    "noEntries": "No entries for this day. Tap Edit to start writing!",
+    "noEntries": "No entries for this day. Click here to start writing!",
+    "editHint": "Click on the text to edit your journal.",
     "calendarHelp": "Select a date to view or edit entries."
   }
 }

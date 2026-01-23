@@ -1,56 +1,18 @@
 import { useState, useEffect } from 'react';
-import { Typography, Box, Button, IconButton, Paper, useMediaQuery, useTheme } from '@mui/material';
-import type { Theme } from '@mui/material';
+import { Typography, Box, IconButton, Paper, useMediaQuery, useTheme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
 import { DateCalendar } from '@mui/x-date-pickers/DateCalendar';
 import { format, isToday } from 'date-fns';
-import EditIcon from '@mui/icons-material/Edit';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import type { ContentEditableEvent } from 'react-simple-wysiwyg';
 import TextEditor from '@/components/TextEditor';
 import DayWithDot from '@/components/DayWithDot';
 import type { DayWithDotProps } from '@/components/DayWithDot';
+import JournalView from '@/components/JournalView';
 import { useDateLocale } from '@/hooks';
-
-// --- Sub-Components Defined Outside to Prevent Re-renders & Focus Loss ---
-
-interface ReadOnlyViewProps {
-  content: string;
-  theme: Theme;
-  noEntriesText: string;
-}
-
-const ReadOnlyView = ({ content, theme, noEntriesText }: ReadOnlyViewProps) => (
-  <Box sx={{ textAlign: 'left', height: '100%', overflowY: 'auto' }}>
-    {content ? (
-      <div
-        dangerouslySetInnerHTML={{ __html: content }}
-        style={{
-          fontFamily: theme.typography.fontFamily,
-          lineHeight: 1.6,
-        }}
-      />
-    ) : (
-      <Typography color="text.secondary" fontStyle="italic">
-        {noEntriesText}
-      </Typography>
-    )}
-  </Box>
-);
-
-// Helper to determine if content is actually empty (ignoring HTML tags and common entities)
-const isContentEmpty = (html: string | null) => {
-  if (!html) return true;
-  // Basic HTML tag stripping and entity cleaning
-  const plainText = html
-    .replace(/<[^>]*>/g, '')
-    .replace(/&nbsp;/g, ' ')
-    .replace(/&zwnj;/g, '')
-    .trim();
-  return plainText === '';
-};
+import { isContentEmpty } from '@/utils/textUtils';
 
 // --- Main Component ---
 
@@ -174,18 +136,6 @@ const GratitudeJournal = () => {
                 {displayTitle}
               </Typography>
             </Box>
-
-            {!isEditing && (
-              <Button
-                variant="contained"
-                color="primary"
-                startIcon={<EditIcon />}
-                onClick={() => setIsEditing(true)}
-                sx={{ color: 'white' }}
-              >
-                {t('common.edit', 'Edit')}
-              </Button>
-            )}
           </Paper>
 
           {/* Content Area */}
@@ -204,10 +154,11 @@ const GratitudeJournal = () => {
             {isEditing ? (
               <TextEditor content={content} onChange={handleContentChange} theme={theme} />
             ) : (
-              <ReadOnlyView
+              <JournalView
                 content={content}
-                theme={theme}
                 noEntriesText={t('journal.noEntries', 'No entries for this day.')}
+                editHintText={t('journal.editHint', 'Click on the text to edit your journal.')}
+                onEdit={() => setIsEditing(true)}
               />
             )}
           </Paper>
