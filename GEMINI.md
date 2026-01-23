@@ -13,6 +13,7 @@
 ## ⛔ CRITICAL RULES: Git & Commits
 
 - **NO AUTO-COMMIT:** 🚫 **NEVER** commit or push changes unless explicitly asked by the user.
+- **CODENAME:** 🚀 **"toljad"** means "commit and push".
 - **Mood:** Imperative ("Add", not "Added").
 - **Forbidden Word:** "Refactor" (Describe the actual change instead).
 - **Be Specific:**

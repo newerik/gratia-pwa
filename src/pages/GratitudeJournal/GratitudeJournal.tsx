@@ -10,6 +10,8 @@ import EditIcon from '@mui/icons-material/Edit';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import type { ContentEditableEvent } from 'react-simple-wysiwyg';
 import TextEditor from '@/components/TextEditor';
+import DayWithDot from '@/components/DayWithDot';
+import type { DayWithDotProps } from '@/components/DayWithDot';
 import { useDateLocale } from '@/hooks';
 
 // --- Sub-Components Defined Outside to Prevent Re-renders & Focus Loss ---
@@ -38,6 +40,18 @@ const ReadOnlyView = ({ content, theme, noEntriesText }: ReadOnlyViewProps) => (
   </Box>
 );
 
+// Helper to determine if content is actually empty (ignoring HTML tags and common entities)
+const isContentEmpty = (html: string | null) => {
+  if (!html) return true;
+  // Basic HTML tag stripping and entity cleaning
+  const plainText = html
+    .replace(/<[^>]*>/g, '')
+    .replace(/&nbsp;/g, ' ')
+    .replace(/&zwnj;/g, '')
+    .trim();
+  return plainText === '';
+};
+
 // --- Main Component ---
 
 const GratitudeJournal = () => {
@@ -51,11 +65,30 @@ const GratitudeJournal = () => {
   // Content State
   const [content, setContent] = useState('');
 
+  // Highlighted Days State
+  const [highlightedDays, setHighlightedDays] = useState<Set<string>>(new Set());
+
   // Editing Mode (Mobile mainly)
   const [isEditing, setIsEditing] = useState(false);
 
   // Helper to get storage key
   const getStorageKey = (date: Date) => `gratia_entries_${format(date, 'yyyy-MM-dd')}`;
+
+  // Load highlighted days on mount
+  useEffect(() => {
+    const days = new Set<string>();
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key?.startsWith('gratia_entries_')) {
+        const dateStr = key.replace('gratia_entries_', '');
+        const storedContent = localStorage.getItem(key);
+        if (!isContentEmpty(storedContent)) {
+          days.add(dateStr);
+        }
+      }
+    }
+    setHighlightedDays(days);
+  }, []);
 
   // Load content when date changes
   useEffect(() => {
@@ -71,6 +104,18 @@ const GratitudeJournal = () => {
     // Auto-save
     const key = getStorageKey(selectedDate);
     localStorage.setItem(key, newContent);
+
+    // Update highlighted days
+    const dateStr = format(selectedDate, 'yyyy-MM-dd');
+    setHighlightedDays((prev) => {
+      const newSet = new Set(prev);
+      if (!isContentEmpty(newContent)) {
+        newSet.add(dateStr);
+      } else {
+        newSet.delete(dateStr);
+      }
+      return newSet;
+    });
   };
 
   const handleDateChange = (value: Date | null) => {
@@ -180,6 +225,14 @@ const GratitudeJournal = () => {
               onChange={handleDateChange}
               showDaysOutsideCurrentMonth
               fixedWeekNumber={6}
+              slots={{
+                day: DayWithDot,
+              }}
+              slotProps={{
+                day: {
+                  highlightedDays,
+                } as DayWithDotProps,
+              }}
             />
           </Paper>
 
