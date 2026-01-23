@@ -1,4 +1,5 @@
 import { Box } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import type { Theme } from '@mui/material';
 import {
   Editor,
@@ -9,6 +10,8 @@ import {
   BtnUnderline,
   BtnBulletList,
   BtnClearFormatting,
+  BtnUndo,
+  BtnRedo,
 } from 'react-simple-wysiwyg';
 import type { ContentEditableEvent } from 'react-simple-wysiwyg';
 
@@ -34,9 +37,10 @@ const TextEditor = ({ content, onChange, theme }: TextEditorProps) => (
         fontFamily: theme.typography.fontFamily,
         fontSize: '1rem',
         padding: '1rem',
+        background: 'transparent',
       },
       '& .rsw-toolbar': {
-        background: theme.palette.background.paper,
+        background: alpha(theme.palette.background.paper, 0.3),
         border: `1px solid ${theme.palette.divider}`,
         borderBottom: 'none',
         borderRadius: '4px 4px 0 0',
@@ -51,6 +55,8 @@ const TextEditor = ({ content, onChange, theme }: TextEditorProps) => (
   >
     <EditorProvider>
       <EditorToolbar>
+        <BtnUndo />
+        <BtnRedo />
         <BtnBold />
         <BtnItalic />
         <BtnUnderline />

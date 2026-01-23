@@ -22,6 +22,8 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 import { useAppTheme } from '@/context/ThemeContext';
 import DarkModeSwitch from '@/components/DarkModeSwitch';
+import DayBg from '@/assets/backgrounds/day-bg.svg';
+import NightBg from '@/assets/backgrounds/night-bg.svg';
 
 const drawerWidth = 240;
 
@@ -30,7 +32,7 @@ const Layout = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
-  const { headerColor } = useAppTheme();
+  const { headerColor, mode } = useAppTheme();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -85,7 +87,7 @@ const Layout = () => {
             aria-label="open drawer"
             edge="start"
             onClick={handleDrawerToggle}
-            sx={{ mr: 2, display: { sm: 'none' } }}
+            sx={{ mr: 2 }}
           >
             <MenuIcon />
           </IconButton>
@@ -102,51 +104,38 @@ const Layout = () => {
         </Toolbar>
       </AppBar>
 
-      <Box
-        component="nav"
-        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
-        aria-label="mailbox folders"
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={handleDrawerToggle}
+        ModalProps={{
+          keepMounted: true, // Better open performance on mobile.
+        }}
+        sx={{
+          '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+        }}
       >
-        {/* Mobile Drawer */}
-        <Drawer
-          variant="temporary"
-          open={mobileOpen}
-          onClose={handleDrawerToggle}
-          ModalProps={{
-            keepMounted: true, // Better open performance on mobile.
-          }}
-          sx={{
-            display: { xs: 'block', sm: 'none' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-        >
-          {drawer}
-        </Drawer>
-
-        {/* Desktop Drawer */}
-        <Drawer
-          variant="permanent"
-          sx={{
-            display: { xs: 'none', sm: 'block' },
-            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
-          }}
-          open
-        >
-          {drawer}
-        </Drawer>
-      </Box>
+        {drawer}
+      </Drawer>
 
       <Box
         component="main"
         sx={{
           flexGrow: 1,
           p: 3,
-          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          width: '100%',
           height: '100%',
           display: 'flex',
           flexDirection: 'column',
           boxSizing: 'border-box',
           overflow: 'hidden',
+          backgroundImage:
+            mode === 'dark'
+              ? `linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url(${NightBg})`
+              : `linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url(${DayBg})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat',
         }}
       >
         <Toolbar />

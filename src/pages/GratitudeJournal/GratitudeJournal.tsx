@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Typography, Box, IconButton, Paper, useMediaQuery, useTheme } from '@mui/material';
+import { alpha } from '@mui/material/styles';
 import { useTranslation } from 'react-i18next';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDateFns } from '@mui/x-date-pickers/AdapterDateFns';
@@ -121,9 +122,12 @@ const GratitudeJournal = () => {
               display: 'flex',
               alignItems: 'center',
               justifyContent: 'space-between',
-              bgcolor: isEditing ? 'background.default' : 'background.paper',
+              bgcolor: isEditing
+                ? alpha(theme.palette.background.default, 0.6)
+                : alpha(theme.palette.background.paper, 0.4),
               borderBottom: `1px solid ${theme.palette.divider}`,
               flexShrink: 0, // Prevent shrinking
+              backdropFilter: 'blur(4px)',
             }}
           >
             <Box display="flex" alignItems="center" gap={1}>
@@ -149,6 +153,8 @@ const GratitudeJournal = () => {
               display: 'flex',
               flexDirection: 'column',
               overflow: 'hidden', // Container handles overflow, children scroll
+              bgcolor: alpha(theme.palette.background.paper, 0.4),
+              backdropFilter: 'blur(4px)',
             }}
           >
             {isEditing ? (
@@ -170,7 +176,15 @@ const GratitudeJournal = () => {
           order={isDesktop ? 2 : 1}
           sx={{ display: isEditing && !isDesktop ? 'none' : 'block' }}
         >
-          <Paper elevation={2} sx={{ p: 0, overflow: 'hidden' }}>
+          <Paper
+            elevation={2}
+            sx={{
+              p: 0,
+              overflow: 'hidden',
+              bgcolor: alpha(theme.palette.background.paper, 0.4),
+              backdropFilter: 'blur(4px)',
+            }}
+          >
             <DateCalendar
               value={selectedDate}
               onChange={handleDateChange}
