@@ -119,7 +119,7 @@ const GratitudeJournal = () => {
             elevation={0}
             sx={{
               p: 2,
-              display: isDesktop ? 'flex' : 'none',
+              display: isDesktop || isEditing ? 'flex' : 'none',
               alignItems: 'center',
               justifyContent: 'space-between',
               bgcolor: isEditing
