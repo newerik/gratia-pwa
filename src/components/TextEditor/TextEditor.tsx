@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import {
   Box,
   IconButton,
@@ -37,6 +37,7 @@ import {
   MoreVert,
   SentimentSatisfiedAlt,
 } from '@mui/icons-material';
+import { EMOJIS } from './emojis';
 
 export interface TextEditorProps {
   content: string;
@@ -67,111 +68,64 @@ const CustomBtnOutdent = createButton('Outdent', <FormatIndentDecrease />, 'outd
 const CustomBtnIndent = createButton('Indent', <FormatIndentIncrease />, 'indent');
 const CustomBtnClearFormatting = createButton('Clear formatting', <FormatClear />, 'removeFormat');
 
-// Common emojis for the picker
-const EMOJIS = [
-  '😀',
-  '😃',
-  '😄',
-  '😁',
-  '😆',
-  '😅',
-  '😂',
-  '🤣',
-  '☺️',
-  '😊',
-  '😇',
-  '🙂',
-  '😉',
-  '😍',
-  '🥰',
-  '😘',
-  '😋',
-  '😛',
-  '😝',
-  '😜',
-  '🤪',
-  '😎',
-  '🤩',
-  '🥳',
-  '😏',
-  '😒',
-  '😞',
-  '😔',
-  '😟',
-  '😕',
-  '🙁',
-  '☹️',
-  '😣',
-  '😖',
-  '😫',
-  '😩',
-  '🥺',
-  '😢',
-  '😭',
-  '😤',
-  '😠',
-  '😡',
-  '🤬',
-  '🤯',
-  '😳',
-  '🥵',
-  '🥶',
-  '😱',
-  '😨',
-  '😰',
-  '😥',
-  '😓',
-  '🤗',
-  '🤔',
-  '🙏',
-  '👍',
-  '👎',
-  '💪',
-  '❤️',
-  '🧡',
-  '💛',
-  '💚',
-  '💙',
-  '💜',
-  '🖤',
-  '🤍',
-  '✨',
-  '🌟',
-  '🔥',
-];
-
 const TextEditor = ({ content, onChange, theme }: TextEditorProps) => {
   const { t } = useTranslation();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  // Selection state to restore focus
+  const savedSelection = useRef<Range | null>(null);
+
+  const saveSelection = () => {
+    const selection = window.getSelection();
+    if (selection && selection.rangeCount > 0) {
+      savedSelection.current = selection.getRangeAt(0);
+    }
+  };
+
+  const restoreSelection = () => {
+    if (savedSelection.current) {
+      const selection = window.getSelection();
+      if (selection) {
+        selection.removeAllRanges();
+        selection.addRange(savedSelection.current);
+      }
+    }
+  };
 
   // Mobile Menu State
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    saveSelection(); // Save selection before opening menu
     setAnchorEl(event.currentTarget);
   };
   const handleMenuClose = () => {
     setAnchorEl(null);
+    restoreSelection(); // Restore selection when menu closes (optional, but good practice)
   };
 
   // Emoji Popover State
   const [anchorElEmoji, setAnchorElEmoji] = useState<null | HTMLElement>(null);
   const openEmoji = Boolean(anchorElEmoji);
   const handleEmojiClick = (event: React.MouseEvent<HTMLElement>) => {
+    saveSelection(); // Save selection before opening emoji picker
     setAnchorElEmoji(event.currentTarget);
   };
   const handleEmojiClose = () => {
     setAnchorElEmoji(null);
+    restoreSelection(); // Restore selection when picker closes
   };
 
   const execCmd = (cmd: string, arg?: string) => {
+    restoreSelection(); // Restore selection before executing command
     document.execCommand(cmd, false, arg);
     handleMenuClose();
   };
 
   const insertEmoji = (emoji: string) => {
+    restoreSelection(); // Restore selection before inserting text
     document.execCommand('insertText', false, emoji);
-    handleEmojiClose();
+    setAnchorElEmoji(null); // Close popover without restoring old selection again
   };
 
   return (
