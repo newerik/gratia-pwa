@@ -102,7 +102,7 @@ const GratitudeJournal = () => {
       <Box
         display="flex"
         flexDirection={isDesktop ? 'row' : 'column'}
-        height={isDesktop ? '100%' : 'auto'}
+        height="100%"
         gap={isDesktop ? 3 : 0}
       >
         {/* LEFT / TOP: Content Area */}
@@ -111,7 +111,7 @@ const GratitudeJournal = () => {
           order={isDesktop ? 1 : 2}
           display="flex"
           flexDirection="column"
-          gap={2}
+          gap={isDesktop || !isEditing ? 2 : 0}
           height="100%" // Ensure it takes full height available
         >
           {/* Header for Day */}

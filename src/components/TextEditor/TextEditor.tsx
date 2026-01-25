@@ -276,7 +276,7 @@ const TextEditor = ({ content, onChange, theme }: TextEditorProps) => {
         <Editor
           value={content}
           onChange={onChange}
-          containerProps={{ style: { height: '100%', overflowY: 'auto' } }}
+          containerProps={{ style: { flexGrow: 1, overflowY: 'auto', minHeight: 0 } }}
         />
         <Popover
           open={openEmoji}
