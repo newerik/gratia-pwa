@@ -1,4 +1,14 @@
-import { Box } from '@mui/material';
+import { useState, useRef } from 'react';
+import {
+  Box,
+  IconButton,
+  Menu,
+  MenuItem,
+  ListItemIcon,
+  ListItemText,
+  useMediaQuery,
+  Popover,
+} from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import type { Theme } from '@mui/material';
 import { useTranslation } from 'react-i18next';
@@ -24,7 +34,10 @@ import {
   FormatAlignRight,
   FormatIndentDecrease,
   FormatIndentIncrease,
+  MoreVert,
+  SentimentSatisfiedAlt,
 } from '@mui/icons-material';
+import { EMOJIS } from './emojis';
 
 export interface TextEditorProps {
   content: string;
@@ -57,6 +70,63 @@ const CustomBtnClearFormatting = createButton('Clear formatting', <FormatClear /
 
 const TextEditor = ({ content, onChange, theme }: TextEditorProps) => {
   const { t } = useTranslation();
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+
+  // Selection state to restore focus
+  const savedSelection = useRef<Range | null>(null);
+
+  const saveSelection = () => {
+    const selection = window.getSelection();
+    if (selection && selection.rangeCount > 0) {
+      savedSelection.current = selection.getRangeAt(0);
+    }
+  };
+
+  const restoreSelection = () => {
+    if (savedSelection.current) {
+      const selection = window.getSelection();
+      if (selection) {
+        selection.removeAllRanges();
+        selection.addRange(savedSelection.current);
+      }
+    }
+  };
+
+  // Mobile Menu State
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
+  const handleMenuClick = (event: React.MouseEvent<HTMLElement>) => {
+    saveSelection(); // Save selection before opening menu
+    setAnchorEl(event.currentTarget);
+  };
+  const handleMenuClose = () => {
+    setAnchorEl(null);
+    restoreSelection(); // Restore selection when menu closes (optional, but good practice)
+  };
+
+  // Emoji Popover State
+  const [anchorElEmoji, setAnchorElEmoji] = useState<null | HTMLElement>(null);
+  const openEmoji = Boolean(anchorElEmoji);
+  const handleEmojiClick = (event: React.MouseEvent<HTMLElement>) => {
+    saveSelection(); // Save selection before opening emoji picker
+    setAnchorElEmoji(event.currentTarget);
+  };
+  const handleEmojiClose = () => {
+    setAnchorElEmoji(null);
+    restoreSelection(); // Restore selection when picker closes
+  };
+
+  const execCmd = (cmd: string, arg?: string) => {
+    restoreSelection(); // Restore selection before executing command
+    document.execCommand(cmd, false, arg);
+    handleMenuClose();
+  };
+
+  const insertEmoji = (emoji: string) => {
+    restoreSelection(); // Restore selection before inserting text
+    document.execCommand('insertText', false, emoji);
+    setAnchorElEmoji(null); // Close popover without restoring old selection again
+  };
 
   return (
     <Box
@@ -112,24 +182,123 @@ const TextEditor = ({ content, onChange, theme }: TextEditorProps) => {
           <Separator />
           <CustomBtnBold title={t('editor.bold')} />
           <CustomBtnItalic title={t('editor.italic')} />
-          <CustomBtnUnderline title={t('editor.underline')} />
-          <Separator />
-          <CustomBtnAlignLeft title={t('editor.alignLeft')} />
-          <CustomBtnAlignCenter title={t('editor.alignCenter')} />
-          <CustomBtnAlignRight title={t('editor.alignRight')} />
-          <Separator />
-          <CustomBtnBulletList title={t('editor.bulletList')} />
-          <CustomBtnNumberedList title={t('editor.numberedList')} />
-          <CustomBtnOutdent title={t('editor.outdent')} />
-          <CustomBtnIndent title={t('editor.indent')} />
-          <Separator />
-          <CustomBtnClearFormatting title={t('editor.clearFormatting')} />
+
+          {!isMobile ? (
+            <>
+              <CustomBtnUnderline title={t('editor.underline')} />
+              <Separator />
+              <CustomBtnAlignLeft title={t('editor.alignLeft')} />
+              <CustomBtnAlignCenter title={t('editor.alignCenter')} />
+              <CustomBtnAlignRight title={t('editor.alignRight')} />
+              <Separator />
+              <CustomBtnBulletList title={t('editor.bulletList')} />
+              <CustomBtnNumberedList title={t('editor.numberedList')} />
+              <CustomBtnOutdent title={t('editor.outdent')} />
+              <CustomBtnIndent title={t('editor.indent')} />
+              <Separator />
+              <CustomBtnClearFormatting title={t('editor.clearFormatting')} />
+              <Separator />
+              <IconButton
+                onClick={handleEmojiClick}
+                className="rsw-btn"
+                sx={{ width: '32px', height: '32px', padding: 0 }}
+                title="Emoji"
+              >
+                <SentimentSatisfiedAlt fontSize="small" />
+              </IconButton>
+            </>
+          ) : (
+            <>
+              <CustomBtnUnderline title={t('editor.underline')} />
+              <CustomBtnBulletList title={t('editor.bulletList')} />
+              <IconButton
+                onClick={handleEmojiClick}
+                className="rsw-btn"
+                sx={{ width: '32px', height: '32px', padding: 0 }}
+                title="Emoji"
+              >
+                <SentimentSatisfiedAlt fontSize="small" />
+              </IconButton>
+              <IconButton
+                onClick={handleMenuClick}
+                className="rsw-btn"
+                sx={{ width: '32px', height: '32px', padding: 0 }}
+              >
+                <MoreVert fontSize="small" />
+              </IconButton>
+              <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose} disableAutoFocusItem>
+                <MenuItem onClick={() => execCmd('insertOrderedList')}>
+                  <ListItemIcon>
+                    <FormatListNumbered fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>{t('editor.numberedList')}</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={() => execCmd('justifyLeft')}>
+                  <ListItemIcon>
+                    <FormatAlignLeft fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>{t('editor.alignLeft')}</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={() => execCmd('justifyCenter')}>
+                  <ListItemIcon>
+                    <FormatAlignCenter fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>{t('editor.alignCenter')}</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={() => execCmd('justifyRight')}>
+                  <ListItemIcon>
+                    <FormatAlignRight fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>{t('editor.alignRight')}</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={() => execCmd('outdent')}>
+                  <ListItemIcon>
+                    <FormatIndentDecrease fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>{t('editor.outdent')}</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={() => execCmd('indent')}>
+                  <ListItemIcon>
+                    <FormatIndentIncrease fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>{t('editor.indent')}</ListItemText>
+                </MenuItem>
+                <MenuItem onClick={() => execCmd('removeFormat')}>
+                  <ListItemIcon>
+                    <FormatClear fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText>{t('editor.clearFormatting')}</ListItemText>
+                </MenuItem>
+              </Menu>
+            </>
+          )}
         </EditorToolbar>
         <Editor
           value={content}
           onChange={onChange}
-          containerProps={{ style: { height: '100%', overflowY: 'auto' } }}
+          containerProps={{ style: { flexGrow: 1, overflowY: 'auto', minHeight: 0 } }}
         />
+        <Popover
+          open={openEmoji}
+          anchorEl={anchorElEmoji}
+          onClose={handleEmojiClose}
+          anchorOrigin={{
+            vertical: 'bottom',
+            horizontal: 'left',
+          }}
+          transformOrigin={{
+            vertical: 'top',
+            horizontal: 'left',
+          }}
+        >
+          <Box sx={{ p: 1, maxWidth: 300, display: 'flex', flexWrap: 'wrap', gap: 0.5 }}>
+            {EMOJIS.map((emoji) => (
+              <IconButton key={emoji} onClick={() => insertEmoji(emoji)} size="small">
+                {emoji}
+              </IconButton>
+            ))}
+          </Box>
+        </Popover>
       </EditorProvider>
     </Box>
   );

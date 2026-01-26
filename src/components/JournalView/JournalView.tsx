@@ -20,8 +20,8 @@ const JournalView = ({ content, noEntriesText, editHintText, onEdit }: JournalVi
           height: '100%',
           display: 'flex',
           justifyContent: 'center',
-          alignItems: 'flex-start',
-          pt: 4,
+          alignItems: 'center',
+          p: 2,
         }}
       >
         <Button

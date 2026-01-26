@@ -102,8 +102,8 @@ const GratitudeJournal = () => {
       <Box
         display="flex"
         flexDirection={isDesktop ? 'row' : 'column'}
-        height={isDesktop ? '100%' : 'auto'}
-        gap={3}
+        height="100%"
+        gap={isDesktop ? 3 : 0}
       >
         {/* LEFT / TOP: Content Area */}
         <Box
@@ -111,7 +111,7 @@ const GratitudeJournal = () => {
           order={isDesktop ? 1 : 2}
           display="flex"
           flexDirection="column"
-          gap={2}
+          gap={isDesktop || !isEditing ? 2 : 0}
           height="100%" // Ensure it takes full height available
         >
           {/* Header for Day */}
@@ -119,7 +119,7 @@ const GratitudeJournal = () => {
             elevation={0}
             sx={{
               p: 2,
-              display: 'flex',
+              display: isDesktop || isEditing ? 'flex' : 'none',
               alignItems: 'center',
               justifyContent: 'space-between',
               bgcolor: isEditing
@@ -146,7 +146,7 @@ const GratitudeJournal = () => {
           <Paper
             elevation={1}
             sx={{
-              p: 2,
+              p: isDesktop ? 2 : 0,
               flexGrow: 1,
               minHeight: 0, // Allow flex scroll
               position: 'relative',

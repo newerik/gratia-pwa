@@ -122,7 +122,7 @@ const Layout = () => {
         component="main"
         sx={{
           flexGrow: 1,
-          p: 3,
+          p: { xs: 0, md: 3 },
           width: '100%',
           height: '100%',
           display: 'flex',
