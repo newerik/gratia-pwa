@@ -19,4 +19,13 @@ i18n
     },
   });
 
+i18n.on('languageChanged', (lng) => {
+  document.documentElement.lang = lng;
+});
+
+// Set initial language
+if (i18n.language) {
+  document.documentElement.lang = i18n.language;
+}
+
 export default i18n;
