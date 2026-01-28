@@ -5,6 +5,15 @@
     "prayerList": "Prayer List",
     "settings": "Settings"
   },
+  "prayerList": {
+    "addItem": "Add item",
+    "archivedItems": "Archived Items",
+    "showArchived": "Show archived items",
+    "hideArchived": "Hide archived items",
+    "placeholder": "Add a new prayer item...",
+    "emptyActive": "Your prayer list is empty.",
+    "emptyArchived": "No archived items."
+  },
   "common": {
     "loading": "Loading...",
     "error": "Error",
