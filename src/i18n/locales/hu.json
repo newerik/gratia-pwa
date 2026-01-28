@@ -5,6 +5,15 @@
     "prayerList": "Imalista",
     "settings": "Beállítások"
   },
+  "prayerList": {
+    "addItem": "Elem hozzáadása",
+    "archivedItems": "Archivált elemek",
+    "showArchived": "Archivált elemek megjelenítése",
+    "hideArchived": "Archivált elemek elrejtése",
+    "placeholder": "Új imatéma hozzáadása...",
+    "emptyActive": "Az imalistád üres.",
+    "emptyArchived": "Nincsenek archivált elemek."
+  },
   "common": {
     "loading": "Betöltés...",
     "error": "Hiba",
