@@ -1,0 +1,43 @@
+{
+  "appTitle": "Gratia",
+  "menu": {
+    "journal": "Journal de gratitude",
+    "prayerList": "Liste de prière",
+    "settings": "Paramètres"
+  },
+  "prayerList": {
+    "addItem": "Ajouter un élément",
+    "archivedItems": "Éléments archivés",
+    "showArchived": "Afficher les éléments archivés",
+    "hideArchived": "Masquer les éléments archivés",
+    "placeholder": "Ajouter une nouvelle prière...",
+    "emptyActive": "Votre liste de prière est vide.",
+    "emptyArchived": "Aucun élément archivé."
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "today": "Aujourd'hui",
+    "edit": "Modifier"
+  },
+  "editor": {
+    "undo": "Annuler",
+    "redo": "Rétablir",
+    "bold": "Gras",
+    "italic": "Italique",
+    "underline": "Souligné",
+    "alignLeft": "Aligner à gauche",
+    "alignCenter": "Aligner au centre",
+    "alignRight": "Aligner à droite",
+    "bulletList": "Liste à puces",
+    "numberedList": "Liste numérotée",
+    "outdent": "Diminuer le retrait",
+    "indent": "Augmenter le retrait",
+    "clearFormatting": "Effacer la mise en forme"
+  },
+  "journal": {
+    "noEntries": "De quoi êtes-vous reconnaissant aujourd'hui ?",
+    "editHint": "Cliquez sur le texte pour modifier votre journal.",
+    "calendarHelp": "Sélectionnez une date pour afficher ou modifier les entrées."
+  }
+}
