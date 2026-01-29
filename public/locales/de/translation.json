@@ -1,0 +1,43 @@
+{
+  "appTitle": "Gratia",
+  "menu": {
+    "journal": "Dankbarkeitstagebuch",
+    "prayerList": "Gebetsliste",
+    "settings": "Einstellungen"
+  },
+  "prayerList": {
+    "addItem": "Element hinzufügen",
+    "archivedItems": "Archivierte Elemente",
+    "showArchived": "Archivierte Elemente anzeigen",
+    "hideArchived": "Archivierte Elemente ausblenden",
+    "placeholder": "Neues Gebet hinzufügen...",
+    "emptyActive": "Deine Gebetsliste ist leer.",
+    "emptyArchived": "Keine archivierten Elemente."
+  },
+  "common": {
+    "loading": "Laden...",
+    "error": "Fehler",
+    "today": "Heute",
+    "edit": "Bearbeiten"
+  },
+  "editor": {
+    "undo": "Rückgängig",
+    "redo": "Wiederholen",
+    "bold": "Fett",
+    "italic": "Kursiv",
+    "underline": "Unterstrichen",
+    "alignLeft": "Linksbündig",
+    "alignCenter": "Zentriert",
+    "alignRight": "Rechtsbündig",
+    "bulletList": "Aufzählungsliste",
+    "numberedList": "Nummerierte Liste",
+    "outdent": "Einzug verringern",
+    "indent": "Einzug vergrößern",
+    "clearFormatting": "Formatierung löschen"
+  },
+  "journal": {
+    "noEntries": "Wofür bist du heute dankbar?",
+    "editHint": "Klicke auf den Text, um dein Tagebuch zu bearbeiten.",
+    "calendarHelp": "Wähle ein Datum aus, um Einträge anzuzeigen oder zu bearbeiten."
+  }
+}

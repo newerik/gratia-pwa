@@ -1,21 +1,23 @@
 import i18n from 'i18next';
 import { initReactI18next } from 'react-i18next';
 import LanguageDetector from 'i18next-browser-languagedetector';
-
-import en from './locales/en.json';
-import hu from './locales/hu.json';
+import HttpBackend from 'i18next-http-backend';
 
 i18n
+  .use(HttpBackend)
   .use(LanguageDetector)
   .use(initReactI18next)
   .init({
-    resources: {
-      en: { translation: en },
-      hu: { translation: hu },
-    },
     fallbackLng: 'en',
+    detection: {
+      order: ['localStorage', 'navigator'],
+      caches: [], // Disable auto-caching to allow "Device default" mode
+    },
     interpolation: {
       escapeValue: false,
+    },
+    backend: {
+      loadPath: '/locales/{{lng}}/{{ns}}.json',
     },
   });
 
