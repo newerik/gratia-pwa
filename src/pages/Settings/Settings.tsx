@@ -1,4 +1,4 @@
-import { Typography, Box, FormControl, InputLabel, Select, MenuItem } from '@mui/material';
+import { Typography, Box, FormControl, InputLabel, Select, MenuItem, Button } from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material';
 import { useTranslation } from 'react-i18next';
 import { useAppTheme } from '@/context/ThemeContext';
@@ -8,15 +8,23 @@ const Settings = () => {
   const { t, i18n } = useTranslation();
   const { headerColor, setAppHeaderColor } = useAppTheme();
 
-  // i18next might return something like 'en-US', so we might need to normalize or just handle 'en' and 'hu'
-  const currentLanguage = i18n.language.startsWith('hu') ? 'hu' : 'en';
+  // Determine current selection: if localStorage has a value, use it; otherwise 'system'
+  const currentSelection = localStorage.getItem('i18nextLng') || 'system';
 
   const handleLanguageChange = (event: SelectChangeEvent) => {
-    i18n.changeLanguage(event.target.value as string);
+    const value = event.target.value;
+    if (value === 'system') {
+      localStorage.removeItem('i18nextLng');
+      // Reload to re-detect from navigator
+      window.location.reload();
+    } else {
+      localStorage.setItem('i18nextLng', value);
+      i18n.changeLanguage(value);
+    }
   };
 
-  const handleColorChange = (event: SelectChangeEvent) => {
-    setAppHeaderColor(event.target.value as string);
+  const handleColorChange = (color: string) => {
+    setAppHeaderColor(color);
   };
 
   return (
@@ -28,31 +36,47 @@ const Settings = () => {
         <InputLabel id="language-select-label">Language</InputLabel>
         <Select
           labelId="language-select-label"
-          value={currentLanguage}
+          value={currentSelection}
           label="Language"
           onChange={handleLanguageChange}
         >
+          <MenuItem value="system">Device default</MenuItem>
           <MenuItem value="en">English</MenuItem>
           <MenuItem value="hu">Magyar</MenuItem>
+          <MenuItem value="de">Deutsch</MenuItem>
+          <MenuItem value="fr">Français</MenuItem>
         </Select>
       </FormControl>
 
       {/* Header Color */}
-      <FormControl fullWidth>
-        <InputLabel id="header-color-select-label">Header Color</InputLabel>
-        <Select
-          labelId="header-color-select-label"
-          value={headerColor}
-          label="Header Color"
-          onChange={handleColorChange}
-        >
+      <Box>
+        <Typography variant="subtitle1" gutterBottom>Header Color</Typography>
+        <Box display="flex" flexWrap="wrap" gap={1}>
           {Object.entries(HEADER_COLORS).map(([name, color]) => (
-            <MenuItem key={name} value={color} sx={{ color: color, fontWeight: 'bold' }}>
-              {name}
-            </MenuItem>
+            <Button
+              key={name}
+              onClick={() => handleColorChange(color)}
+              variant={headerColor === color ? 'outlined' : 'text'}
+              sx={{
+                display: 'flex',
+                alignItems: 'center',
+                gap: 1,
+                textTransform: 'none',
+                color: 'text.primary',
+                borderColor: 'text.primary',
+                borderWidth: headerColor === color ? 2 : 0,
+                '&:hover': {
+                  borderWidth: headerColor === color ? 2 : 1,
+                  borderColor: 'text.primary',
+                },
+              }}
+            >
+              <Box sx={{ width: 24, height: 24, bgcolor: color, borderRadius: 1, border: '1px solid rgba(0,0,0,0.1)' }} />
+              <Typography>{name}</Typography>
+            </Button>
           ))}
-        </Select>
-      </FormControl>
+        </Box>
+      </Box>
     </Box>
   );
 };
