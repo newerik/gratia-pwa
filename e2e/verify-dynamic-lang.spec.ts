@@ -15,5 +15,5 @@ test('verify dynamic language loading', async ({ page }) => {
   await expect(page.getByRole('heading', { name: 'Einstellungen' })).toBeVisible();
 
   // Take screenshot
-  await page.screenshot({ path: 'verification/german_settings.png' });
+  await page.screenshot({ path: 'e2e-screenshots/german_settings.png' });
 });
