@@ -1,53 +1,83 @@
-# Gratia PWA - Gratitude Journal
+# Gratia PWA - Gratitude Journal & Prayer List
 
-A Progressive Web App (PWA) built with React, TypeScript, and Vite for keeping a daily gratitude journal and managing a prayer list.
+Gratia PWA is a mobile-first Progressive Web Application (PWA) designed to help users cultivate gratitude and manage their prayer lists. Built with React, TypeScript, and Material UI, it offers a seamless experience across devices with offline capabilities and planned Google Drive synchronization.
 
-## Features
+## 🌟 Features
 
-- **Gratitude Journal**: Write down what you are grateful for each day. Includes a calendar view for easy navigation.
-- **Prayer List**: A to-do list style view for prayers, functioning similarly to Google Keep, complete with archiving and reordering capabilities.
-- **Mobile First & Responsive**: Designed for mobile devices first, but fully functional on desktop screens.
-- **Offline Support**: Fully functional offline using Local Storage and a service worker (Workbox).
-- **Google Drive Sync**: Sync your journal entries and prayers to Google Drive when online.
-- **Customization**:
-  - Dark Mode support (manual or system-based).
-  - Customizable header colors (7 colors of the rainbow).
-- **Localization**: Supports multiple languages (currently English and Hungarian), detecting browser language with English as the fallback.
+### 📖 Gratitude Journal
 
-## Tech Stack
+- **Calendar View:** Browse through dates to view past entries.
+- **Rich Text Editor:** Write daily gratitude entries with formatting options (bold, italic, underline, bullet points).
+- **Auto-save:** Content is saved automatically to local storage as you type.
+- **Responsive Layout:**
+  - _Mobile:_ Toggles between calendar and editor/list view.
+  - _Desktop:_ Split-screen layout with calendar and entry list side-by-side.
 
-- [React](https://react.dev/)
-- [TypeScript](https://www.typescriptlang.org/)
-- [Vite](https://vitejs.dev/)
-- [Material UI (MUI)](https://mui.com/)
-- [Workbox](https://developer.chrome.com/docs/workbox/) for PWA and offline support
+### 🙏 Prayer List
 
-## Getting Started
+- **Checklist Management:** Add, edit, and reorder prayer requests (inspired by Google Keep).
+- **Archiving:** Archive answered or completed items; view them in a separate "Archived" list.
+- **Edit & Delete:** Full control over your list items.
+
+### ⚙️ Customization & Settings
+
+- **Dark Mode:** Toggle between Light and Dark themes (or sync with system settings).
+- **Header Customization:** Select from 7 rainbow colors for the app header.
+- **Internationalization (i18n):** Native support for English and Hungarian (Magyar) with auto-detection.
+- **Data Management:** Options to export, import, or delete local data.
+
+### ☁️ Google Drive Integration (Planned)
+
+- Sync journal entries and prayer lists across devices using a Google account.
+- **Offline-First:** Fully functional without an internet connection; syncs when online.
+
+## 🛠️ Tech Stack
+
+- **Framework:** [React](https://react.dev/)
+- **Language:** [TypeScript](https://www.typescriptlang.org/)
+- **Build Tool:** [Vite](https://vitejs.dev/)
+- **UI Library:** [Material UI (MUI)](https://mui.com/)
+- **Routing:** [React Router](https://reactrouter.com/)
+- **PWA Support:** [Vite PWA Plugin](https://vite-pwa-org.netlify.app/) & Workbox
+- **Internationalization:** [i18next](https://www.i18next.com/)
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-Ensure you have Node.js and a package manager like `pnpm` installed.
+- Node.js (Latest LTS recommended)
+- [pnpm](https://pnpm.io/) package manager
 
 ### Installation
 
-1. Clone the repository
-2. Install dependencies:
+1. **Install dependencies:**
+
    ```bash
    pnpm install
    ```
-3. Start the development server:
+
+2. **Start the development server:**
+
    ```bash
-   pnpm run dev
+   pnpm dev
    ```
 
-### Build
+3. **Build for production:**
 
-To build the project for production:
+   ```bash
+   pnpm build
+   ```
 
-```bash
-pnpm run build
-```
+4. **Preview the production build:**
 
-## Concept
+   ```bash
+   pnpm preview
+   ```
 
-For more detailed information regarding the core concept, features, and design, please refer to the [Concept.md](./Concept.md) file.
+## 📱 PWA Features
+
+This application is installed as a Progressive Web App (PWA):
+
+- **Installable:** Add to home screen on mobile and desktop.
+- **Offline Capable:** Service workers cache assets and data for offline access.
+- **Auto-Update:** Notifies users when a new version is available.

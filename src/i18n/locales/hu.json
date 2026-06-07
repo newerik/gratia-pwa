@@ -1,0 +1,34 @@
+{
+  "appTitle": "Gratia",
+  "menu": {
+    "journal": "Hála napló",
+    "prayerList": "Imalista",
+    "settings": "Beállítások"
+  },
+  "common": {
+    "loading": "Betöltés...",
+    "error": "Hiba",
+    "today": "Ma",
+    "edit": "Szerkesztés"
+  },
+  "editor": {
+    "undo": "Visszavonás",
+    "redo": "Mégis",
+    "bold": "Félkövér",
+    "italic": "Dőlt",
+    "underline": "Aláhúzott",
+    "alignLeft": "Balra igazítás",
+    "alignCenter": "Középre igazítás",
+    "alignRight": "Jobbra igazítás",
+    "bulletList": "Felsorolás",
+    "numberedList": "Számozott lista",
+    "outdent": "Behúzás csökkentése",
+    "indent": "Behúzás növelése",
+    "clearFormatting": "Formázás törlése"
+  },
+  "journal": {
+    "noEntries": "Nincs bejegyzés erre a napra. Kattints ide az íráshoz!",
+    "editHint": "Kattints a szövegre a napló szerkesztéséhez.",
+    "calendarHelp": "Válassz egy dátumot a bejegyzések megtekintéséhez vagy szerkesztéséhez."
+  }
+}
